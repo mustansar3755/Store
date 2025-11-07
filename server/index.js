@@ -5,6 +5,7 @@ import cors from "cors";
 import connectDB from "./src/config/mongoDB.js";
 import cloudinaryConnection from "./src/config/cloudinary.js";
 import userRouter from "./src/routes/userRouter.js";
+import productRouter from "./src/routes/productRouter.js";
 
 // App config
 const app = express();
@@ -21,7 +22,7 @@ app.get("/", (req, res) => {
   res.send("API WORKING");
 });
 app.use("/api/user", userRouter);
-app.use("/api/product", userRouter);
+app.use("/api/product", productRouter);
 // Api Run
 
 app.listen(port, () => {
