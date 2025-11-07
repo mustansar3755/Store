@@ -53,12 +53,25 @@ const addProduct = async (req, res) => {
 // list all product
 
 const listProduct = async (req, res) => {
-  res.json({ msg: "Product LISTING API WORKING" });
+  try {
+    const productList = await productModel.find({});
+    res.json({success:true,productList})
+  } catch (error) {
+    console.log(error);
+    res.json({success:false,message:"Error Listing Products"})
+  }
 };
 // Delete  product
 
 const deleteProduct = async (req, res) => {
-  res.json({ msg: "Product DELETE API WORKING" });
+    try {
+        await productModel.findByIdAndDelete(req.body.id);
+        res.json({success:true,message:"Product Deleted"})
+        
+    } catch (error) {
+        console.log(error);
+        res.json({success:false,message:error.message});
+    }
 };
 // Single Product
 const singleProduct = async (req, res) => {
