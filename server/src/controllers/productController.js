@@ -38,13 +38,12 @@ const addProduct = async (req, res) => {
       bestSeller: bestSeller === "true" ? true : false,
       sizes: JSON.parse(sizes),
       image: imagesURL,
-      date:Date.now()
+      date: Date.now(),
     };
     console.log(productData);
     const product = new productModel(productData);
-    await product.save()
-    res.json({success:true,message:"Product Addedd Successfully"});
-
+    await product.save();
+    res.json({ success: true, message: "Product Addedd Successfully" });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: "Error Adding New File." });
@@ -55,27 +54,34 @@ const addProduct = async (req, res) => {
 const listProduct = async (req, res) => {
   try {
     const productList = await productModel.find({});
-    res.json({success:true,productList})
+    res.json({ success: true, productList });
   } catch (error) {
     console.log(error);
-    res.json({success:false,message:"Error Listing Products"})
+    res.json({ success: false, message: "Error Listing Products" });
   }
 };
 // Delete  product
 
 const deleteProduct = async (req, res) => {
-    try {
-        await productModel.findByIdAndDelete(req.body.id);
-        res.json({success:true,message:"Product Deleted"})
-        
-    } catch (error) {
-        console.log(error);
-        res.json({success:false,message:error.message});
-    }
+  try {
+    await productModel.findByIdAndDelete(req.body.id);
+    res.json({ success: true, message: "Product Deleted" });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
 };
 // Single Product
 const singleProduct = async (req, res) => {
-  res.json({ msg: "Single Product API WORKING" });
+  try {
+    const { productID } = req.body;
+    console.log(productID);
+    const product = await productModel.findById(productID);
+    res.json({ success: true, product });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
 };
 
 export { addProduct, listProduct, deleteProduct, singleProduct };
