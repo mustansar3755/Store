@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config();
-import express from "express";
+import express, { urlencoded } from "express";
 import cors from "cors";
 import connectDB from "./src/config/mongoDB.js";
 import cloudinaryConnection from "./src/config/cloudinary.js";
@@ -15,6 +15,7 @@ cloudinaryConnection(); // Cloud Storage Connection
 
 //Middlwares
 app.use(express.json());
+app.use(urlencoded())
 app.use(cors());
 
 //Api Endpoints

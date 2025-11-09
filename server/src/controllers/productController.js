@@ -75,7 +75,6 @@ const deleteProduct = async (req, res) => {
 const singleProduct = async (req, res) => {
   try {
     const { productID } = req.body;
-    console.log(productID);
     const product = await productModel.findById(productID);
     res.json({ success: true, product });
   } catch (error) {
